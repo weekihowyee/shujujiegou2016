@@ -57,11 +57,13 @@ Status Show_Link(Linklist L)
     return OK;
 }
 
-Status GetElem(Linklist L,int i,ElemType *e)
+ElemType* GetElem(Linklist L,int i)
 {
     int j;
+	int tes;
+	ElemType *e;
     Linklist p;
-    p=L->Next;
+    p=L;
     j=1;
 
     while(p && j<i)
@@ -70,15 +72,19 @@ Status GetElem(Linklist L,int i,ElemType *e)
         j++;
     }
 
-    *e=p->data;
-    return OK;
+    e=&(p->data);
+
+    return e;
 }
 
 void main()
 {
+	int *e;
     Linklist L=NULL;
     L=Init_Link();
     Show_Link(L);
+	e=GetElem(L,2);
+	printf("%d\n",*e);
 }
 
 
