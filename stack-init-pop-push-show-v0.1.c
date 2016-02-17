@@ -86,6 +86,30 @@ Status Init_Stack_Type(sqStack *s)
     return OK;
 }
 
+int Getlen(sqStack *s)
+{
+   return (s->top-s->base);
+}
+
+Status Free_All(sqStack *s)
+{
+    s->base=s->top;
+}
+
+Status Destroy(sqStack *s)
+{
+    int len=s->stackSize,i;
+    ElemType *p,*q;
+    for(i=0;i<len;i++)
+    {
+        p=s->base++;
+        free(s->base);
+        s->base=p;
+    }
+    s->base=s->top=NULL;
+    s->stackSize=0;
+    return OK;
+}
 
 void main()
 {
@@ -99,6 +123,10 @@ void main()
 	Show_Stack(s);
 	Pop(s,e);
 	Show_Stack(s);
+	printf("\nlength is %d\n",Getlen(s));
+	Free_All(s);
+	Show_Stack(s);
+	Destroy(s);
 	free(e);
 }
 
